@@ -1,0 +1,85 @@
+:root {
+  --green: #4cedc4;
+  --darkGrey: #292f36;
+  --white: #fffffa;
+  --darkPrimary: #0e243b;
+  --black: #000013;
+  --secondary: #eb8211;
+  --primary: #03396f;
+  --orange: #fa8334;
+  --red: #ff312e;
+}
+
+.drop {
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.425));
+}
+
+.logo_container {
+  display: flex;
+  /* flex-direction: row; */
+  /* justify-content: center; */
+  align-items: center;
+  margin-top: -90px;
+  margin-bottom: -90px;
+}
+
+.logo {
+  width: 85vmin;
+  position: relative;
+  left: 10px;
+}
+
+.gear {
+  width: 12vmin;
+  animation: gear-spin infinite 20s linear;
+  position: relative;
+  right: 50px;
+}
+
+.title {
+  grid-area: title;
+  display: grid;
+  grid-gap: 20px;
+  width: 100%;
+  max-width: 700px;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  color: var(--secondary);
+  font-size: 14px;
+
+}
+
+.title::before,
+.title::after {
+  display: block;
+  content: '';
+  height: 10px;
+}
+
+.title::before {
+  background: linear-gradient(to left, var(--secondary), transparent);
+}
+
+.title::after {
+  background: linear-gradient(to right, var(--secondary), transparent);
+}
+
+
+@keyframes gear-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+/* @media (max-width: 500px) {
+  .gear {
+    width: 18vmin;
+  }
+
+} */
