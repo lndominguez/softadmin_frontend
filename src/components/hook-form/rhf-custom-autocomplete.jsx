@@ -12,7 +12,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function RHFCustomAutocomplete({ name, label, type, helperText, placeholder, ...other }) {
+export default function RHFCustomAutocomplete({ name, bgColor, label, type, helperText, placeholder, ...other }) {
   const { control, setValue } = useFormContext();
 
   const { multiple } = other;
@@ -131,7 +131,7 @@ export default function RHFCustomAutocomplete({ name, label, type, helperText, p
                 }}
                 sx={{
                   '& .MuiInputBase-root': {
-                    backgroundColor: 'white'
+                    backgroundColor: bgColor
                   }
                 }}
               />
@@ -146,6 +146,7 @@ export default function RHFCustomAutocomplete({ name, label, type, helperText, p
 
 RHFCustomAutocomplete.propTypes = {
   name: PropTypes.string,
+  bgColor: PropTypes.string,
   type: PropTypes.string,
   label: PropTypes.string,
   helperText: PropTypes.node,

@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import axiosInstance, { fetcher, endpoints } from 'src/utils/axios';
 
 export function useGetUsers() {
-  console.log("ESTOY EN LA API")
   const URL = endpoints.user.list;
 
   const { data, isLoading, error, isValidating, mutate } = useSWR(URL, fetcher);
@@ -20,7 +19,6 @@ export function useGetUsers() {
     }),
     [data, error, isLoading, isValidating, mutate]
   );
-  console.log(memoizedValue);
   return memoizedValue;
 }
 

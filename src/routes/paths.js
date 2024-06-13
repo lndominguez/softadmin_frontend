@@ -144,6 +144,14 @@ export const paths = {
         details: `${ROOTS.DASHBOARD}/order/${MOCK_ID}`,
       },
     },
+    reservation: {
+      root: `${ROOTS.DASHBOARD}/reservation`,
+      details: (id) => `${ROOTS.DASHBOARD}/reservation/${id}`,
+      new: `${ROOTS.DASHBOARD}/reservation/new`,
+      demo: {
+        details: `${ROOTS.DASHBOARD}/reservation/${MOCK_ID}`,
+      },
+    },
     job: {
       root: `${ROOTS.DASHBOARD}/job`,
       new: `${ROOTS.DASHBOARD}/job/new`,

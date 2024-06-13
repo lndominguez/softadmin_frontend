@@ -131,6 +131,12 @@
   "all_rights": "Todos los derechos",
   "reserved": "reservados",
   "education": "Educación",
-  
+  "navigation_menu":{
+      "user":"Usuario",
+      "provider":"Proveedor",
+      "airline":"Aerolinea",
+      "reservation":"Reservacion"  
+  },
+  "sales_agent":"Agente de ventas",
   "":""
 }

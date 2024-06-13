@@ -1,0 +1,178 @@
+import * as Yup from 'yup';
+import { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
+import LoadingButton from '@mui/lab/LoadingButton';
+
+import { paths } from 'src/routes/paths';
+import { useRouter } from 'src/routes/hooks';
+
+import { useBoolean } from 'src/hooks/use-boolean';
+
+import { _addressBooks } from 'src/_mock';
+
+import FormProvider from 'src/components/hook-form';
+
+import InvoiceNewEditDetails from './invoice-new-edit-details';
+import InvoiceNewEditAddress from './reservation-new-edit-sale-setting';
+import InvoiceNewEditStatusDate from './invoice-new-edit-status-date';
+import ReservationNewEditSaleSetting from './reservation-new-edit-sale-setting';
+import UserNewEditForm from '../user/user-new-edit-form';
+import { InputAdornment, TextField } from '@mui/material';
+import ReservationNewEditCustomer from './reservation-new-edit-customer';
+import { useGetUsers } from 'src/api/user';
+
+// ----------------------------------------------------------------------
+
+export default function ReservationNewEditForm({ currentInvoice }) {
+  const router = useRouter();
+
+  const loadingSave = useBoolean();
+  const {users} = useGetUsers();
+  const loadingSend = useBoolean();
+
+  const NewInvoiceSchema = Yup.object().shape({
+    provider: Yup.mixed().nullable().required('Provider to is required'),
+    customer: Yup.mixed().nullable().required('Customer to is required'),
+    airline: Yup.mixed().nullable().required('Airline is required'),
+    createDate: Yup.mixed().nullable().required('Create date is required'),
+    dueDate: Yup.mixed()
+      .required('Due date is required')
+      .test(
+        'date-min',
+        'Due date must be later than create date',
+        (value, { parent }) => value.getTime() > parent.createDate.getTime()
+      ),
+    items: Yup.lazy(() =>
+      Yup.array().of(
+        Yup.object({
+          title: Yup.string().required('Title is required'),
+          service: Yup.string().required('Service is required'),
+          quantity: Yup.number()
+            .required('Quantity is required')
+            .min(1, 'Quantity must be more than 0'),
+        })
+      )
+    ),
+    // not required
+    taxes: Yup.number(),
+    status: Yup.string(),
+    discount: Yup.number(),
+    shipping: Yup.number(),
+    salesAgent: Yup.mixed(),
+    totalAmount: Yup.number(),
+    invoiceNumber: Yup.string(),
+  });
+
+  const defaultValues = useMemo(
+    () => ({
+      invoiceNumber: currentInvoice?.invoiceNumber || 'INV-1990',
+      createDate: currentInvoice?.createDate || new Date(),
+      dueDate: currentInvoice?.dueDate || null,
+      taxes: currentInvoice?.taxes || 0,
+      shipping: currentInvoice?.shipping || 0,
+      status: currentInvoice?.status || 'draft',
+      discount: currentInvoice?.discount || 0,
+      salesAgent: currentInvoice?.salesAgent || null,
+      provider: currentInvoice?.provider || null,
+      customer: currentInvoice?.customer || null,
+      airline: currentInvoice?.airline || null,
+      items: currentInvoice?.items || [
+        {
+          title: '',
+          description: '',
+          service: '',
+          quantity: 1,
+          price: 0,
+          total: 0,
+        },
+      ],
+      totalAmount: currentInvoice?.totalAmount || 0,
+    }),
+    [currentInvoice]
+  );
+
+  const methods = useForm({
+    resolver: yupResolver(NewInvoiceSchema),
+    defaultValues,
+  });
+
+  const {
+    reset,
+
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
+  const handleSaveAsDraft = handleSubmit(async (data) => {
+    loadingSave.onTrue();
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      reset();
+      loadingSave.onFalse();
+      router.push(paths.dashboard.invoice.root);
+      console.info('DATA', JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.error(error);
+      loadingSave.onFalse();
+    }
+  });
+
+  const handleCreateAndSend = handleSubmit(async (data) => {
+    loadingSend.onTrue();
+    console.log('DATA', JSON.stringify(data, null, 2));
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      reset();
+      loadingSend.onFalse();
+      router.push(paths.dashboard.invoice.root);
+      console.info('DATA', JSON.stringify(data, null, 2));
+    } catch (error) {
+      console.error(error);
+      loadingSend.onFalse();
+    }
+  });
+
+  return (
+    <FormProvider methods={methods}>
+      <Card>
+        <ReservationNewEditSaleSetting />
+
+        {/* <InvoiceNewEditStatusDate /> */}
+        <ReservationNewEditCustomer/>
+       
+        {/* <InvoiceNewEditDetails /> */}
+      </Card>
+
+      <Stack justifyContent="flex-end" direction="row" spacing={2} sx={{ mt: 3 }}>
+        <LoadingButton
+          color="inherit"
+          size="large"
+          variant="outlined"
+          loading={loadingSave.value && isSubmitting}
+          onClick={handleSaveAsDraft}
+        >
+          Save as Draft
+        </LoadingButton>
+
+        <LoadingButton
+          size="large"
+          variant="contained"
+          loading={loadingSend.value && isSubmitting}
+          onClick={handleCreateAndSend}
+        >
+          {currentInvoice ? 'Update' : 'Create'} & Send
+        </LoadingButton>
+      </Stack>
+    </FormProvider>
+  );
+}
+
+ReservationNewEditForm.propTypes = {
+  currentInvoice: PropTypes.object,
+};

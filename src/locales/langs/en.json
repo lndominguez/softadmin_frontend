@@ -114,11 +114,11 @@
   "desktop_development": "Desktop Development",
   "our_team": "Our Team",
   "meet_our_team": "Meet our team",
-  "our_business_focus":"Our Business Focus",
-  "our_business_focus_title":{
-    "exp":"Expertise",
-    "dedication":"Dedication",
-    "innovation":"Innovation"
+  "our_business_focus": "Our Business Focus",
+  "our_business_focus_title": {
+    "exp": "Expertise",
+    "dedication": "Dedication",
+    "innovation": "Innovation"
   },
   "our_business_focus_description": "With a solid foundation of knowledge and experience, our team demonstrates its tireless dedication in every project, constantly innovating to achieve outstanding solutions that drive our clients' success.",
   "success_stories": "Success Stories",
@@ -131,6 +131,13 @@
   "all_rights": "All rights",
   "reserved": "reserved",
   "education": "Education",
+  "navigation_menu": {
+    "user": "User",
+    "provider": "Provider",
+    "airline": "Airline",
+    "reservation": "Reservation"
+  },
+  "sales_agent":"Sales Agent",
 
   "": ""
 }

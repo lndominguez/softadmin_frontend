@@ -23,6 +23,11 @@ const ProductEditPage = lazy(() => import('src/pages/dashboard/product/edit'));
 // ORDER
 const OrderListPage = lazy(() => import('src/pages/dashboard/order/list'));
 const OrderDetailsPage = lazy(() => import('src/pages/dashboard/order/details'));
+// RESERVATION
+const ReservationListPage = lazy(() => import('src/pages/dashboard/reservation/list'));
+const ReservationDetailsPage = lazy(() => import('src/pages/dashboard/reservation/details'));
+const ReservationCreatePage = lazy(() => import('src/pages/dashboard/reservation/new'));
+
 // INVOICE
 const InvoiceListPage = lazy(() => import('src/pages/dashboard/invoice/list'));
 const InvoiceDetailsPage = lazy(() => import('src/pages/dashboard/invoice/details'));
@@ -111,6 +116,16 @@ export const dashboardRoutes = [
           { element: <OrderListPage />, index: true },
           { path: 'list', element: <OrderListPage /> },
           { path: ':id', element: <OrderDetailsPage /> },
+        ],
+      },
+      {
+        path: 'reservation',
+        children: [
+          { element: <ReservationListPage />, index: true },
+          { path: 'list', element: <ReservationListPage /> },
+          { path: ':id', element: <ReservationDetailsPage /> },
+          { path: 'new', element: <ReservationCreatePage /> },
+
         ],
       },
       {

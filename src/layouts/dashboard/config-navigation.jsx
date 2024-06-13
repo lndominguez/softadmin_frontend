@@ -80,7 +80,7 @@ export function useNavData() {
         items: [
           // USER
           {
-            title: t('usuario'),
+            title: t('navigation_menu.user'),
             path: paths.dashboard.user.root,
             icon: ICONS.user,
             children: [
@@ -93,35 +93,47 @@ export function useNavData() {
             ],
           },
           // PROVEEDORES
-          {
-            title: t('proveedor'),
-            path: paths.dashboard.provider.root,
-            icon:  <Iconify icon="solar:users-group-rounded-bold-duotone" width={24} />,
-            children: [
-              { title: t('list'), path: paths.dashboard.provider.root },
-              { title: t('create'), path: paths.dashboard.provider.new },
-            ],
-          },
+          // {
+          //   title: t('navigation_menu.provider'),
+          //   path: paths.dashboard.provider.root,
+          //   icon:  <Iconify icon="solar:users-group-rounded-bold-duotone" width={24} />,
+          //   children: [
+          //     { title: t('list'), path: paths.dashboard.provider.root },
+          //     { title: t('create'), path: paths.dashboard.provider.new },
+          //   ],
+          // },
 
           // AEROLINEA
-          {
-            title: t('aerolinea'),
-            path: paths.dashboard.airline.root,
-            icon: <SvgColor src={`/assets/icons/navbar/ic_airplane-96.png`} sx={{ width: 1, height: 1 }} />,
-            children: [
-              { title: t('list'), path: paths.dashboard.airline.root },
-              { title: t('create'), path: paths.dashboard.airline.new },
-            ],
-          },
+          // {
+          //   title: t('navigation_menu.airline'),
+          //   path: paths.dashboard.airline.root,
+          //   icon: <SvgColor src={`/assets/icons/navbar/ic_airplane-96.png`} sx={{ width: 1, height: 1 }} />,
+          //   children: [
+          //     { title: t('list'), path: paths.dashboard.airline.root },
+          //     { title: t('create'), path: paths.dashboard.airline.new },
+          //   ],
+          // },
 
           // ORDER
+          // {
+          //   title: t('ordenes'),
+          //   path: paths.dashboard.order.root,
+          //   icon: ICONS.order,
+          //   children: [
+          //     { title: t('list'), path: paths.dashboard.order.root },
+          //     { title: t('details'), path: paths.dashboard.order.demo.details },
+          //   ],
+          // },
+
+          // RESERVATION
           {
-            title: t('ordenes'),
-            path: paths.dashboard.order.root,
+            title: t('navigation_menu.reservation'),
+            path: paths.dashboard.reservation.root,
             icon: ICONS.order,
             children: [
-              { title: t('list'), path: paths.dashboard.order.root },
-              { title: t('details'), path: paths.dashboard.order.demo.details },
+              { title: t('list'), path: paths.dashboard.reservation.root },
+              { title: t('details'), path: paths.dashboard.reservation.demo.details },
+              { title: t('create'), path: paths.dashboard.reservation.new },
             ],
           },
 
